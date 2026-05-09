@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Day in My Life</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm: #e8ddc8;
+      --brown: #3a2a1a;
+      --tan: #c9a87a;
+      --soft: #8a7a6a;
+      --accent: #c85a2a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      color: var(--brown);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--brown);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(201,168,122,0.15) 0%, transparent 70%);
+    }
+
+    .hero-date {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--tan);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 9vw, 96px);
+      color: var(--cream);
+      line-height: 1.05;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.4s;
+    }
+
+    .hero-title em {
+      color: var(--tan);
+      font-style: italic;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 2px;
+      background: var(--tan);
+      margin: 0 auto 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.6s;
+    }
+
+    .hero-intro {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(14px, 2vw, 17px);
+      color: rgba(245,240,232,0.7);
+      max-width: 520px;
+      line-height: 1.8;
+      font-weight: 300;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.8s;
+    }
+
+    .hero-name {
+      margin-top: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--tan);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1s;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--soft);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.2s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 5px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 5vw, 48px);
+      color: var(--brown);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .section-text {
+      font-size: 16px;
+      color: var(--soft);
+      line-height: 1.9;
+      max-width: 560px;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    /* ── PHOTO GRIDS ── */
+    .photo-single {
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(58,42,26,0.15);
+    }
+
+    .photo-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .photo-grid-2 img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 12px 40px rgba(58,42,26,0.12);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .photo-grid-2 img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 20px 60px rgba(58,42,26,0.2);
+    }
+
+    .photo-grid-3 {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+
+    .photo-grid-3 img:first-child {
+      grid-row: 1 / 3;
+      height: 100%;
+      min-height: 400px;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 12px 40px rgba(58,42,26,0.12);
+    }
+
+    .photo-grid-3 img:not(:first-child) {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 12px 40px rgba(58,42,26,0.12);
+      transition: transform 0.4s ease;
+    }
+
+    .photo-grid-3 img:hover { transform: scale(1.02); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--warm), transparent);
+      margin: 0;
+    }
+
+    /* ── AUDIO SECTION ── */
+    .audio-section {
+      background: var(--brown);
+      padding: 100px 20px;
+    }
+
+    .audio-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .audio-text .section-label { color: var(--tan); }
+    .audio-text .section-title { color: var(--cream); }
+    .audio-text .section-text { color: rgba(245,240,232,0.6); }
+
+    .audio-player-wrap {
+      background: rgba(245,240,232,0.06);
+      border: 1px solid rgba(201,168,122,0.2);
+      border-radius: 8px;
+      padding: 36px;
+    }
+
+    .audio-label {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--tan);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .audio-title-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      color: var(--cream);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    audio {
+      width: 100%;
+      height: 44px;
+      outline: none;
+      border-radius: 4px;
+      filter: invert(1) sepia(0.3) hue-rotate(180deg);
+    }
+
+    .audio-note {
+      font-size: 11px;
+      color: rgba(201,168,122,0.5);
+      margin-top: 16px;
+      font-style: italic;
+    }
+
+    /* ── P5 SECTION ── */
+    .sketch-section {
+      padding: 100px 20px;
+      background: var(--warm);
+    }
+
+    .sketch-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .sketch-embed {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    .sketch-embed iframe {
+      border: none;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(58,42,26,0.15);
+    }
+
+    /* ── CREDITS ── */
+    .credits-section {
+      padding: 80px 20px;
+      background: var(--brown);
+      text-align: center;
+    }
+
+    .credits-section .section-label { color: var(--tan); text-align: center; }
+    .credits-section .section-title { color: var(--cream); text-align: center; margin: 0 auto 40px; }
+
+    .credits-grid {
+      max-width: 700px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      text-align: left;
+    }
+
+    .credit-item h4 {
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: var(--tan);
+      margin-bottom: 10px;
+    }
+
+    .credit-item p {
+      font-size: 13px;
+      color: rgba(245,240,232,0.55);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .footer-line {
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(201,168,122,0.15);
+      font-size: 11px;
+      color: rgba(201,168,122,0.35);
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .photo-grid-2, .photo-grid-3, .audio-inner, .credits-grid {
+        grid-template-columns: 1fr;
+      }
+      .photo-grid-3 img:first-child { min-height: 260px; grid-row: auto; }
+      .photo-grid-3 img:not(:first-child) { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="hero-date">NEW YORK · 2026</div>
+    <h1 class="hero-title">A Day in<br/><em>My Life</em></h1>
+    <div class="hero-line"></div>
+    <p class="hero-intro">
+      From the morning coffee to the evening commute - a personal story told through 
+      sound, images, and code. This is what an ordinary day looks like.
+    </p>
+    <div class="hero-name">BY ISSABEK RAMAZAN &nbsp;·&nbsp; MMP 100</div>
+    <div class="scroll-hint">SCROLL TO EXPLORE</div>
+  </section>
+
+  <!-- ── MORNING ── -->
+  <div class="divider"></div>
+  <section class="section">
+    <div class="section-label">CHAPTER ONE</div>
+    <h2 class="section-title">The Morning Begins</h2>
+    <p class="section-text">
+      Every day starts the same way - a quiet moment with coffee before the city wakes up. 
+      The morning has its own rhythm, unhurried and full of possibility.
+    </p>
+    <div class="photo-grid-2">
+      <img src="images/morning coffee.jpeg" alt="Morning coffee"/>
+      <img src="images/my desk.jpeg" alt="My desk"/>
+    </div>
+  </section>
+
+  <!-- ── COMMUTE ── -->
+  <div class="divider"></div>
+  <section class="section">
+    <div class="section-label">CHAPTER TWO</div>
+    <h2 class="section-title">On My Way</h2>
+    <p class="section-text">
+      The commute into the city is a world of its own - 
+      crowded platforms, familiar faces, the hum of the subway carrying everyone 
+      toward their day.
+    </p>
+    <div class="photo-grid-2">
+      <img src="images/on my way to classes.jpeg" alt="On my way"/>
+      <img src="images/subway.jpeg" alt="Subway"/>
+    </div>
+  </section>
+
+  <!-- ── AUDIO: AT THE OFFICE ── -->
+  <div class="audio-section">
+    <div class="audio-inner">
+      <div class="audio-text">
+        <div class="section-label">CHAPTER THREE</div>
+        <h2 class="section-title">At the Office</h2>
+        <p class="section-text">
+          The office has its own soundtrack - keyboards, conversations, the hum of 
+          the heater, coffee brewing. Close your eyes and listen to a day at work.
+        </p>
+      </div>
+      <div class="audio-player-wrap">
+        <span class="audio-label">▶ LISTEN</span>
+        <div class="audio-title-text">"A Day at the Office"</div>
+        <audio controls>
+          <source src="office-audio.mp3" type="audio/mpeg"/>
+          Your browser does not support the audio element.
+        </audio>
+        <p class="audio-note">Recorded at the office · Audacity · MMP 100 Audio Project</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OFFICE PHOTOS ── -->
+  <div class="divider"></div>
+  <section class="section">
+    <div class="section-label">CHAPTER FOUR</div>
+    <h2 class="section-title">The Workspace</h2>
+    <p class="section-text">
+      Hours pass in the quiet focus of work. Meetings, spreadsheets, calls - 
+      the day fills itself in ways you never quite plan.
+    </p>
+    <div class="photo-grid-3">
+      <img src="images/at the office.jpeg" alt="At the office"/>
+      <img src="images/at the conference office.jpeg" alt="Conference room"/>
+      <img src="images/my desk.jpeg" alt="My desk closeup"/>
+    </div>
+  </section>
+
+  <!-- ── P5.JS SKETCH ── -->
+  <div class="sketch-section">
+    <div class="sketch-inner">
+      <div class="section-label">INTERLUDE</div>
+      <h2 class="section-title">Life in the Hudson River</h2>
+      <p class="section-text">
+        Between the city and New Jersey flows the Hudson River - a world beneath 
+        the surface, full of quiet life. Click to add bubbles.
+      </p>
+      <div class="sketch-embed">
+        <iframe
+          src="https://editor.p5js.org/issaramazan/full/5ZXM7feVM"
+          width="400"
+          height="400"
+          title="Life in Hudson River p5.js sketch">
+        </iframe>
+      </div>
+      <p style="font-size:11px; color:var(--soft); margin-top:16px; font-style:italic;">
+        Interactive p5.js sketch · MMP 100 Programming Project · Click on the canvas to add bubbles
+      </p>
+    </div>
+  </div>
+
+  <!-- ── CREDITS ── -->
+  <div class="credits-section">
+    <div class="section-label">CREDITS</div>
+    <h2 class="section-title" style="font-family:'Playfair Display',serif; font-size:36px;">Thank You</h2>
+
+    <div class="credits-grid">
+      <div class="credit-item">
+        <h4>PHOTOGRAPHY</h4>
+        <p>All photos taken by Issabek Ramazan with iPhone · 2026 · New York </p>
+      </div>
+      <div class="credit-item">
+        <h4>AUDIO</h4>
+        <p>
+          "A Day at the Office" recorded and edited by Issabek Ramazan in Audacity.<br/>
+          Sound effects from Freesound.org (CC licensed):<br/>
+          Office Ambience by nightwatcher98<br/>
+          People Talking by nachosala<br/>
+          Office Mouse by geoff-bremner-audio<br/>
+          Office Drawer by bokal<br/>
+          Steps on Wood by jigglesticks
+        </p>
+      </div>
+      <div class="credit-item">
+        <h4>INTERACTIVE SKETCH</h4>
+        <p>"Life in Hudson River" · p5.js · Created by Issabek Ramazan · MMP 100 Programming Project</p>
+      </div>
+      <div class="credit-item">
+        <h4>TOOLS USED</h4>
+        <p>HTML & CSS · Audacity · p5.js · iPhone Camera · MMP 100 · BMCC · Spring 2026</p>
+      </div>
+    </div>
+
+    <div class="footer-line">
+      MMP 100 · INTRO TO MULTIMEDIA · BMCC · SPRING 2026 · ISSABEK RAMAZAN
+    </div>
+  </div>
+
+</body>
+</html>
